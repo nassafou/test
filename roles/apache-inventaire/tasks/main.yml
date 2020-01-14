@@ -1,0 +1,10 @@
+---
+- name: "Apache configuration"
+  template:
+        src: "inventaire.conf.j2"
+        dest: "/etc/apache2/sites-available/inventory.conf"
+        owner: "vagrant"
+        group: "vagrant"
+# Notify Apache restart handler
+  notify: ["restart apache"]
+
