@@ -1,11 +1,26 @@
 ---
-- name: "apache installation"
-  apt: 
-    name: apache2 
+
+- name: install apache
+  apt:
+    name: apache2
     state: present
-- name: "apache service activation"
-  service: 
-    name: apache2 
-    state: started 
-    enabled: yes
+ 
+
+- name: "install php70 packages"
+  apt:
+    name: "php,php-mysql,php-xml,php-mbstring,php-mcrypt,php-gd,php-intl"
+    state: latest
+  when: php_install|default(False)|bool
+  # We need to restart apache
+  notify: [ "apache restart" ]
+
+
+
+
+
+
+
+
+
+
 

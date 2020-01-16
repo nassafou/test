@@ -1,5 +1,7 @@
 [apache]
 192.168.205.12
 
+[apache:vars]
+php_install=yes
 [mysql]
-192.168.205.11
+192.168.205.13

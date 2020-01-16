@@ -1,0 +1,12 @@
+---
+- name: "mariadb installation"
+  apt:
+    name: "mariadb-server"
+    state: "installed"
+
+- name: "start mariadb service"
+  become: yes
+  service: 
+        name: mysql
+        state: started
+        enabled: yes
