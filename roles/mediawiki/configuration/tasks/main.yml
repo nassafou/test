@@ -3,7 +3,7 @@
 - name: "mediawiki directory" 
   become: yes
   file: 
-    path: '{{mediawiki_directory}}'
+    path: "{{mediawiki_directory}}"
    # path: name={{item}} state=present
     owner: "vagrant"
     group: "vagrant"
@@ -21,9 +21,9 @@
     group: "vagrant"
     remote_src: yes
  # remove mediawiki-29.0/ from path
-    extra_opts: 
-       - --transform
-       - s/^mediawiki-[0-9\.]*\///
+#    extra_opts: 
+ #      - --transform
+ #      - s/^mediawiki-[0-9\.]*\///
 
 - name: "mediawiki configuration"
   become: yes
