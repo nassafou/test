@@ -1,5 +1,6 @@
 ---
 - name: "mariadb installation"
+  become: yes
   apt:
     name: "mariadb-server"
     state: "installed"
@@ -10,3 +11,10 @@
         name: mysql
         state: started
         enabled: yes
+
+- name: "mariadb-server installation"
+  become: yes
+  apt: 
+     name: mariadb-server,python-mysqldb
+     state: installed
+     
