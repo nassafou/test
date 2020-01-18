@@ -28,8 +28,8 @@
 - name: "mediawiki configuration"
   become: yes
   become_user: "vagrant"
-  args:
-    chdir: "{{mediawiki_maintenance_directory}}"
+#  args:
+#    chdir: "{{mediawiki_maintenance_directory}}"
   command:
     php install.php --scriptpath /{{mediawiki_name}}
        --dbname mediawiki --lang fr
@@ -38,5 +38,9 @@
        --pass {{mediawiki_admin_password}}
        --dbserver {{mediawiki_db_host}}
        {{mediawiki_title}} {{mediawiki_admin_user}}
-  env:
-    LC_ALL: C
+ # env:
+#    LC_ALL: C
+  args: 
+    # If localSettings
+    creates: "{{mediawiki_directory}}/LocalSettings.php"
+    chdir: "{{mediawiki_maintenance_directory}}"
