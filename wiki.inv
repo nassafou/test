@@ -5,3 +5,6 @@
 php_install=yes
 [mysql]
 192.168.205.13
+
+[haproxy]
+192.168.205.14
