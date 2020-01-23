@@ -8,3 +8,6 @@ php_install=yes
 
 [haproxy]
 192.168.205.14
+
+[haproxy:vars]
+ansible_python_interpreter=/usr/bin/python3
