@@ -1,0 +1,25 @@
+---
+ - name: "install haproxy package"
+   become: yes
+   apt:
+     name: "haproxy"
+     state: present
+
+ - name: "haproxy configuration"
+   become: yes
+   template:
+     src: "mediawiki.conf.j2"
+     dest: "/etc/haproxy/haproxy.cfg"
+     owner: "vagrant"
+     group: "vagrant"
+   notify: "restart haproxy"
+
+# Force restart handlers
+ - meta: flush_handlers
+
+ - name: "enable and start haproxy service"
+   become: yes
+   service: 
+     name: "haproxy"
+     state: started
+     enabled: yes
