@@ -1,13 +1,17 @@
 [apache]
 192.168.205.12
+192.168.205.15
 
 [apache:vars]
 php_install=yes
+
 [mysql]
 192.168.205.13
 
 [haproxy]
 192.168.205.14
 
+
 [haproxy:vars]
-ansible_python_interpreter=/usr/bin/python3
+ansible_python_interpreter=/usr/bin/python2
+
