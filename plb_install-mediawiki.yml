@@ -11,5 +11,6 @@
   tags: "apache"
   gather_facts: no
   roles: 
-    - role: mediawiki/configuration
+    -  mediawiki/php
+    -  mediawiki/configuration
 
