@@ -8,6 +8,10 @@
 
 - name: "MediaWiki apache  configuration"
   hosts: apache
+  # 3 hosts at a time
+#  serial: 3
+  # one, all hosts (test 1 ok and test all)
+#  serial: [ "1", "100" ]
   tags: "apache"
   gather_facts: no
   roles: 

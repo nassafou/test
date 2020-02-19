@@ -21,9 +21,12 @@
     group: "vagrant"
     remote_src: yes
  # remove mediawiki-29.0/ from path
-#    extra_opts: 
- #      - --transform
- #      - s/^mediawiki-[0-9\.]*\///
+    extra_opts: 
+       - --transform
+       - s/^mediawiki-[0-9\.]*\///
+   # vars to know if current machine have mediawiki files
+   # check the presence in next task
+    register: archive_uncompressed
 
 - name: "mediawiki configuration"
   become: yes
@@ -41,6 +44,16 @@
  # env:
 #    LC_ALL: C
   args: 
-    # If localSettings
+    # If localSettings exist, we skip this command
     creates: "{{mediawiki_directory}}/LocalSettings.php"
     chdir: "{{mediawiki_maintenance_directory}}"
+  # All commands are lunched from the first machine 
+  # Using delegate_to and with_items we can lauch the command
+  # one machine at the time 
+  # This way we are sure that our command is never launched 
+  # multiple time in parallel from different hosts
+  run_once: yes
+  delegate_to: "{{item}}"
+  # check if we have mediawiki files on current host
+  when: "hostvars[item].archive_uncompressed is defined"
+  with_items: "{{groups.apache}}"

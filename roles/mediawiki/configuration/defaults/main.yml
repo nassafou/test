@@ -9,6 +9,6 @@ mediawiki_directory: "/var/www/html/{{mediawiki_name}}"
 mediawiki_maintenance_directory: "{{mediawiki_directory}}/maintenance"
 # default database host: first machine from group mysql
 mediawiki_db_host: "{{groups.mysql.0}}"
-#mediawiki_archive_url: https://releases.wikimedia.org/mediawiki/2.29/mediawiki-1.29.0.tar.gz
+#imediawiki_archive_url: https://releases.wikimedia.org/mediawiki/2.29/mediawiki-1.29.0.tar.gz
 #mediawiki_archive_url: "https://releases.wikimedia.org/mediawiki/1.31/mediawiki-1.31.1.tar.gz"
 
