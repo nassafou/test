@@ -11,10 +11,23 @@
   # 3 hosts at a time
 #  serial: 3
   # one, all hosts (test 1 ok and test all)
-#  serial: [ "1", "100" ]
+#  serial: [ "1", "50%" ]
   tags: "apache"
   gather_facts: no
+  pre_tasks:
+    - name: "disable this apache intance"
+      file:
+        path: "/var/www/html/disabled"
+        state: touch
+    - name: "wait haproxy to ignore the host"
+      pause: 
+         seconds: 2
   roles: 
     -  mediawiki/php
     -  mediawiki/configuration
+  post_tasks:
+    - name: "enable this Apache instance"
+      file: 
+        path: "/var/www/html/disable"
+        state: absent
 
