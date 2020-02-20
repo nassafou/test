@@ -1,0 +1,19 @@
+---
+ - name: "Table count"
+   hosts: mysql
+   gather_facts: no
+   tasks:
+     - name: "Put sql file"
+       become: yes
+       copy:
+         src: "testmodule.sql"
+         dest: "/tmp/testmod.sql"
+         mode: 777
+     - name: "Launch mysql"
+       become: yes
+       shell: mysql mediawiki < /tmp/testmod.sql
+       register: mysql
+     - name: "Table count"
+       become: yes
+       debug:
+         var: mysql

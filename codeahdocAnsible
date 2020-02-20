@@ -1,0 +1,1 @@
+ansible -i wiki.inv -b  -m file -a "path=/var/www/html/disabled state=absent" 192.168.205.12 
