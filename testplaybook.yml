@@ -1,0 +1,16 @@
+---
+ - name: "OK"
+   hosts: localhost
+   gather_facts: no
+   vars:
+      schema_v1:
+         personnnes: ["nom", "prenom" ]
+   tasks:
+     - name: "ok hello"
+       apt: 
+         name: git
+         state: present
+
+    #  db_schema:
+    #       db_url: "sqlit:////tmp/test.db"
+    #       spec: "{{schema_v1}}"
