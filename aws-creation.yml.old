@@ -1,0 +1,11 @@
+---
+ - name: "Create ec2 instance"
+   hosts: localhost
+   gather_facts: no
+   tasks: 
+     - name: "Provision a test instance"
+       ec2: 
+           instance_type: t2.micro
+           image: "ami-cfdafaaa"
+           wait: true 
+           region: "us-east-2"
