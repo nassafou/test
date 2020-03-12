@@ -2,6 +2,5 @@ SELECT
   COUNT(*)
 FROM
   information_schema.tables
-
 WEHRE
-  table_shema = 'mediawiki';
+  table_schema = 'mediawiki';

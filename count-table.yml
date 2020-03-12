@@ -6,7 +6,7 @@
      - name: "Put sql file"
        become: yes
        copy:
-         src: "testmodule.sql"
+         src: "/home/vagrant/test/testmodule.sql"
          dest: "/tmp/testmod.sql"
          mode: 777
      - name: "Launch mysql"
@@ -16,4 +16,4 @@
      - name: "Table count"
        become: yes
        debug:
-         var: mysql
+         var: mysql.stdout_lines[-1]
