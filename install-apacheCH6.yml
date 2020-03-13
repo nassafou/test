@@ -1,0 +1,29 @@
+---
+- name: 
+  hosts: apache
+  become: yes
+  tasks:
+    - name: install apache
+      apt:
+        name: apache2
+        state: present
+     
+ 
+    - name: "install php70 packages"
+      apt:
+        name: "php,php-mysql,php-xml,php-mbstring,php-mcrypt,php-gd,php-intl"
+        state: latest
+      when: php_install|default(False)|bool
+      # We need to restart apache
+      notify: [ "apache restart" ]
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+

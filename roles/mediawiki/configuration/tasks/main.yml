@@ -1,0 +1,59 @@
+---
+
+- name: "mediawiki directory" 
+  become: yes
+  file: 
+    path: "{{mediawiki_directory}}"
+   # path: name={{item}} state=present
+    owner: "vagrant"
+    group: "vagrant"
+    state: directory
+  #  with_items:
+  #       - wget https://releases.wikimedia.org/mediawiki/1.31/mediawiki-1.31.1.tar.gz
+
+- name: "uncompress mediawiki archive"
+  become: yes
+  unarchive:
+  # src: "{{mediawiki_archive_url}}"
+    src: /home/vagrant/test/mediawiki-1.31.1.tar.gz
+    dest: "{{mediawiki_directory}}"
+    owner: "vagrant"
+    group: "vagrant"
+    remote_src: yes
+ # remove mediawiki-29.0/ from path
+    extra_opts: 
+       - --transform
+       - s/^mediawiki-[0-9\.]*\///
+   # vars to know if current machine have mediawiki files
+   # check the presence in next task
+    register: archive_uncompressed
+
+- name: "mediawiki configuration"
+  become: yes
+  become_user: "vagrant"
+#  args:
+#    chdir: "{{mediawiki_maintenance_directory}}"
+  command:
+     php --scriptpath /{{mediawiki_name}}
+       --dbname mediawiki --lang fr
+       --dbuser {{mediawiki_db_user}}
+       --dbpass {{mediawiki_db_password}}
+       --pass {{mediawiki_admin_password}}
+       --dbserver {{mediawiki_db_host}}
+       {{mediawiki_title}} {{mediawiki_admin_user}}
+ # env:
+#    LC_ALL: C
+  args: 
+    # If localSettings exist, we skip this command
+    creates: "{{mediawiki_directory}}/LocalSettings.php"
+    chdir: "{{mediawiki_maintenance_directory}}"
+  # All commands are lunched from the first machine 
+  # Using delegate_to and with_items we can lauch the command
+  # one machine at the time 
+  # This way we are sure that our command is never launched 
+  # multiple time in parallel from different hosts
+  run_once: yes
+  delegate_to: "{{item}}"
+  # check if we have mediawiki files on current host
+  when: "hostvars[item].archive_uncompressed is defined"
+  with_items: "{{groups.apache}}"

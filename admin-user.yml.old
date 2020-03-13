@@ -1,0 +1,11 @@
+---
+ - name: "Handle admin user"
+   hosts: localhost
+   become: yes 
+   vars: 
+     admin_password: "Ansibl3!zzZ"
+   tasks:
+     - name: "Handle admin user"
+       user: 
+        name: "admin"
+        password: "{{admin_password|password_hash}}"

@@ -1,5 +1,16 @@
 [apache]
-192.168.205.12
+192.168.205.11
+
+
+
 
 [mysql]
-192.168.205.11
+192.168.205.13
+
+[haproxy]
+192.168.205.14
+
+
+[haproxy:vars]
+ansible_python_interpreter=/usr/bin/python2
+

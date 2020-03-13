@@ -1,0 +1,11 @@
+---
+ - name: "Table count"
+   hosts: mysql
+   gather_facts: no
+   tasks: 
+     - name: "Retrive table count"
+       mysql_request:
+          db_name: "mediawiki"
+          request: "{{lookup('file', 'testmodule.sql')}}"
+#       register: result
+     - debug: var=mysql_results
