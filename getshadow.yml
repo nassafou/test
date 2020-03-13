@@ -1,0 +1,7 @@
+---
+ - name: "Read previous hash"
+   getent:
+     database: "shadow"
+     key: "admin"
+     fail_key: no 
+ - debug: var=getent_shadow.admin[0]
